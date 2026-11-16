@@ -1,0 +1,67 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Redmine ${{ matrix.redmine }}, Ruby ${{ matrix.ruby }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          # oldest and newest Ruby that each Redmine branch supports
+          - { redmine: "7.0-stable", ruby: "3.2" }
+          - { redmine: "7.0-stable", ruby: "4.0" }
+          - { redmine: "6.1-stable", ruby: "3.2" }
+          - { redmine: "6.1-stable", ruby: "3.4" }
+          - { redmine: "6.0-stable", ruby: "3.1" }
+          - { redmine: "6.0-stable", ruby: "3.3" }
+          - { redmine: "5.1-stable", ruby: "3.2" }
+    env:
+      RAILS_ENV: test
+      BUNDLE_WITHOUT: development:minimagick
+    steps:
+      - name: Check out Redmine
+        uses: actions/checkout@v4
+        with:
+          repository: redmine/redmine
+          ref: ${{ matrix.redmine }}
+          path: redmine
+
+      - name: Check out the plugin
+        uses: actions/checkout@v4
+        with:
+          path: redmine/plugins/redmine_firearm_specs
+
+      - name: Configure SQLite
+        working-directory: redmine
+        run: |
+          cat > config/database.yml <<'YAML'
+          test:
+            adapter: sqlite3
+            database: db/redmine_test.sqlite3
+          YAML
+
+      - name: Set up Ruby and install the gems
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+          bundler-cache: true
+          working-directory: redmine
+
+      - name: Create the test database
+        working-directory: redmine
+        run: bundle exec rake db:create db:migrate
+
+      - name: Run the plugin tests
+        working-directory: redmine
+        run: bundle exec rake redmine:plugins:test NAME=redmine_firearm_specs

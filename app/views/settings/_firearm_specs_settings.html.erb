@@ -1,0 +1,13 @@
+<% values = RedmineFirearmSpecs.with_defaults(settings) %>
+<p>
+  <%= label_tag 'settings_caliber_links', l(:firearm_specs_setting_caliber_links) %>
+  <%= hidden_field_tag 'settings[caliber_links]', '0', id: nil %>
+  <%= check_box_tag 'settings[caliber_links]', '1', values['caliber_links'] == '1', id: 'settings_caliber_links' %>
+  <em class="info"><%= l(:firearm_specs_setting_caliber_links_info) %></em>
+</p>
+<p>
+  <%= label_tag 'settings_currency_symbol', l(:firearm_specs_setting_currency_symbol) %>
+  <%= text_field_tag 'settings[currency_symbol]', values['currency_symbol'], id: 'settings_currency_symbol',
+                     size: 6, maxlength: RedmineFirearmSpecs::MAX_CURRENCY_SYMBOL_LENGTH %>
+  <em class="info"><%= l(:firearm_specs_setting_currency_symbol_info) %></em>
+</p>

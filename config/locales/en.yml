@@ -1,0 +1,41 @@
+en:
+  firearm_specs_label_type: Type
+  firearm_specs_label_brand: Brand
+  firearm_specs_label_model: Model
+  firearm_specs_label_caliber: Caliber
+  firearm_specs_label_calibers: Calibers
+  firearm_specs_label_capacity: Capacity
+  firearm_specs_label_barrel_length: Barrel length
+  firearm_specs_label_rounds: Rounds per box
+  firearm_specs_label_price: Price
+  firearm_specs_label_cost_per_round: Cost per round
+
+  firearm_specs_kind_firearm: Firearm
+  firearm_specs_kind_ammo: Ammunition
+
+  firearm_specs_value_rounds:
+    one: "%{count} round"
+    other: "%{count} rounds"
+  firearm_specs_value_inches: "%{length} in"
+  firearm_specs_value_cost_per_round: "%{amount} per round"
+
+  firearm_specs_text_no_specs: "No firearm or ammunition specs found in: %{title}"
+  firearm_specs_text_unknown_caliber: Unknown caliber
+  firearm_specs_text_cost_basis: "%{price} for %{rounds} rounds"
+
+  firearm_specs_error_title_missing: the product title is missing
+  firearm_specs_error_caliber_missing: the caliber is missing
+  firearm_specs_error_cost_per_round_usage: "give a price and a round count or a title, for example: 18.99, 50"
+  firearm_specs_error_too_long: "the text is longer than %{max} characters"
+  firearm_specs_error_kind: "kind must be firearm or ammo, not \"%{value}\""
+  firearm_specs_error_price: "\"%{value}\" is not a price"
+  firearm_specs_error_decimals: "decimals must be a whole number from 0 to %{max}, not \"%{value}\""
+  firearm_specs_error_rounds: "no round count found in \"%{text}\"; give the number of rounds, for example: 18.99, 50"
+
+  firearm_specs_setting_caliber_links: Link calibers to GunsNPrices
+  firearm_specs_setting_caliber_links_info: >-
+    Caliber names in the gun_specs and caliber macros link to their price comparison pages on gunsnprices.com.
+    Off by default.
+  firearm_specs_setting_currency_symbol: Currency symbol
+  firearm_specs_setting_currency_symbol_info: >-
+    Shown before prices and costs per round. Up to 5 characters; leave empty for none.
