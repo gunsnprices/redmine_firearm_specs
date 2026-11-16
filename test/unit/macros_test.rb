@@ -16,7 +16,13 @@ class FirearmSpecsMacrosTest < Redmine::HelperTest
 
   def setup
     super
+    Setting.clear_cache
     @project = nil
+  end
+
+  def teardown
+    Setting.clear_cache
+    super
   end
 
   # gun_specs

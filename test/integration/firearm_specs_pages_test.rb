@@ -19,6 +19,16 @@ class FirearmSpecsPagesTest < Redmine::IntegrationTest
     Next time {{caliber(300 BLK)}}.
   TEXT
 
+  def setup
+    super
+    Setting.clear_cache
+  end
+
+  def teardown
+    Setting.clear_cache
+    super
+  end
+
   def test_wiki_page
     log_user("jsmith", "jsmith")
     put "/projects/ecookbook/wiki/Firearm_specs", params: {content: {text: TEXT, comments: "macros"}}

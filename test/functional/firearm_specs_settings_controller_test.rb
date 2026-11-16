@@ -8,8 +8,16 @@ class FirearmSpecsSettingsControllerTest < Redmine::ControllerTest
   fixtures :users, :email_addresses
 
   def setup
+    super
+    # Redmine caches settings in memory, and the cache outlives the rollback of the settings saved by a test
+    Setting.clear_cache
     User.current = nil
     @request.session[:user_id] = 1 # admin
+  end
+
+  def teardown
+    Setting.clear_cache
+    super
   end
 
   def test_settings_page_shows_the_defaults
